@@ -43,18 +43,15 @@ Raksha Kavach is a native Android application designed to modernize workplace sa
 ## ⚙️ Setup & Installation
 1.  **Clone the Repo**: `git clone https://github.com/Ramakrishna7792/RakshaKavach.git`
 2.  **Firebase Configuration**:
-   *   Create a project in [Firebase Console](https://console.firebase.google.com/).
-   *   Enable Phone Authentication and Firestore.
-   *   Add your `google-services.json` to the `app/` directory.
+    *   Create a project in [Firebase Console](https://console.firebase.google.com/).
+    *   Enable Phone Authentication and Firestore.
+    *   Add your `google-services.json` to the `app/` directory.
 3.  **API Keys**:
-   *   Obtain a Gemini API Key from [Google AI Studio](https://aistudio.google.com/).
-   *   Add the key to the `MainViewModel.kt` or a secure properties file.
+    *   Obtain a Gemini API Key from [Google AI Studio](https://aistudio.google.com/).
+    *   Add the key to the `MainViewModel.kt` or a secure properties file.
 4.  **Build**: Open in Android Studio (Ladybug or newer) and sync Gradle.
 
 ---
-
-## 📱 Screenshots
-*(Add your screenshots here later)*
 
 ## 📄 License
 This project is developed for industrial safety enhancement. (Choose a license like MIT or Apache 2.0)
