@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "429053286479",
+    "project_id": "rakshakavach-d1e04",
+    "storage_bucket": "rakshakavach-d1e04.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:429053286479:android:b7b0bd020dae996a3df23a",
+        "android_client_info": {
+          "package_name": "com.safety.rakshakavach"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWRI2a-AyLU4efzZsDYSKNHj4CkOA5jAk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

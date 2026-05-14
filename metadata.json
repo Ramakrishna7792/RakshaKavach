@@ -1,0 +1,9 @@
+{
+  "name": "Raksha-Kavach",
+  "description": "Industrial Worker Safety Auditor with AI-powered risk analysis, PPE checklists, and incident logging.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ],
+  "majorCapabilities": []
+}
