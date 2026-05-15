@@ -69,6 +69,23 @@ Raksha Kavach is a native Android application designed to modernize workplace sa
 
 ---
 
+## ⚠️ Important Notes for Evaluators and viewers
+
+### 1. AI PPE Scan & Task Selection
+*   **Current Status**: For testing and demonstration purposes, manual verification of safety gear is currently allowed. This allows users to proceed to tasks even without a physical PPE kit.
+*   **Constraint**: The AI Scan (Gemini AI) requires the worker to be wearing the gear correctly for successful detection. If any gear is missing, the "Start Work" button should remain disabled.
+*   **How to Enable Strict Mode**: To force AI verification and disable manual checking, go to `ChecklistScreen.kt` and locate the `PpeCheckItem` calls. Set `isEnabled = false` and comment out the `onCheckedChange` logic.
+
+### 2. Emergency SOS System
+*   **Current Status**: The SOS system is designed for real-world devices. 
+*   **Why it may not work on Emulator**: 
+    *   **SMS**: The `SmsManager` requires a physical SIM card to send the emergency message.
+    *   **GPS**: Accurate location fetching depends on hardware GPS sensors (Emulators may return null or simulated values).
+*   **Hardcoded Recipient**: The emergency alert is currently hardcoded to an administrator's number  for safety during the evaluation phase. 
+*   **How to Change**: To modify the emergency contact or SMS logic, update the `sendSos` function in `MainViewModel.kt`.
+
+---
+
 ## 📱 Screenshots
 
 | Login Screen | Register Screen | Dashboard | Select Task |
