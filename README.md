@@ -70,11 +70,14 @@ Raksha Kavach is a native Android application designed to modernize workplace sa
 ---
 
 ## 📱 Screenshots
-| Login Screen | Home Dashboard | AI PPE Scan | Risk Meter |
-| :---: | :---: | :---: | :---: |
-| ![Login](screenshots/login.png) | ![Home](screenshots/home.png) | ![Scan](screenshots/scan.png) | ![Risk](screenshots/risk.png) |
 
-*(Note: Create a 'screenshots' folder in the root and add your app images there with these names)*
+| Login Screen | Register Screen | Dashboard | Select Task |
+| :---: | :---: | :---: | :---: |
+| ![Login](screenshots/login.jpeg) | ![Register](screenshots/register.jpeg) | ![Dashboard](screenshots/dashboard.jpeg) | ![SelectTask](screenshots/select_task.jpeg) |
+
+| Safety Gear Checklist | Risk Meter | Incident Log | Worker Profile |
+| :---: | :---: | :---: | :---: |
+| ![Checklist](screenshots/checklist.jpeg) | ![RiskMeter](screenshots/risk.jpeg) | ![IncidentLog](screenshots/incident_log.jpeg) | ![Profile](screenshots/profile.jpeg) |
 
 ---
 
