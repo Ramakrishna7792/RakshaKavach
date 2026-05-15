@@ -15,9 +15,24 @@ local.properties
 *.ipr
 *.iws
 
+# Android Studio / IntelliJ
+.idea/shelf/
+.idea/checkstyle-idea.xml
+.idea/inspectionProfiles/
+.idea/codeStyles/
+
+# Built variants
+**/build/
+
 # Logs
 *.log
 
 # Misc
 .DS_Store
 captures/
+*.bak
+
+# Secrets
+# Note: google-services.json is usually kept out of public repos for security,
+# but for evaluation you may need to include a template or instructions.
+# google-services.json
