@@ -52,4 +52,12 @@ Raksha Kavach is a native Android application designed to modernize workplace sa
 4.  **Build**: Open in Android Studio (Ladybug or newer) and sync Gradle.
 
 ---
+
+## 📱 Screenshots
+*(Add your screenshots here later)*
+
+## 📄 License
+This project is developed for industrial safety enhancement. (Choose a license like MIT or Apache 2.0)
+
+---
 **"Your Safety is Your Responsibility — Raksha Kavach makes it easier."**
