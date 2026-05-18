@@ -24,7 +24,9 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import android.app.Activity
+import com.safety.rakshakavach.R
 import com.safety.rakshakavach.viewmodel.MainViewModel
 
 @Composable
@@ -77,14 +79,14 @@ fun RegisterScreen(
             contentAlignment = Alignment.Center
         ) {
             Surface(
-                modifier = Modifier.size(70.dp),
+                modifier = Modifier.size(80.dp),
                 color = Color.Black,
                 shape = RoundedCornerShape(16.dp)
             ) {
                 Icon(
-                    imageVector = Icons.Default.Shield,
+                    painter = painterResource(id = R.drawable.ic_launcher_foreground),
                     contentDescription = null,
-                    modifier = Modifier.padding(14.dp),
+                    modifier = Modifier.padding(8.dp),
                     tint = safetyYellow
                 )
             }
