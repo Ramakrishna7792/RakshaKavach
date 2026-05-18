@@ -83,6 +83,9 @@ dependencies {
     // Gemini AI
     implementation("com.google.ai.client.generativeai:generativeai:0.2.0")
 
+    // Location
+    implementation("com.google.android.gms:play-services-location:21.3.0")
+
     // Firebase
     implementation(platform("com.google.firebase:firebase-bom:32.7.2"))
     implementation("com.google.firebase:firebase-auth-ktx")

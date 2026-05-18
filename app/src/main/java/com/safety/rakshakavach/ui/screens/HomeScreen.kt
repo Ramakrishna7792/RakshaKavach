@@ -7,7 +7,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -19,6 +18,8 @@ import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -31,6 +32,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.Priority
 import coil.compose.AsyncImage
 import com.safety.rakshakavach.viewmodel.MainViewModel
 import kotlinx.coroutines.launch
@@ -50,6 +53,9 @@ fun HomeScreen(navController: NavController, viewModel: MainViewModel) {
     val snackbarHostState = remember { SnackbarHostState() }
     val safetyYellow = Color(0xFFFFCC00)
 
+    var sosTapCount by remember { mutableIntStateOf(0) }
+    var lastTapTime by remember { mutableLongStateOf(0L) }
+
     val getT = { key: String -> com.safety.rakshakavach.ui.Translations.getString(key, currentLang) }
 
     val permissionLauncher = rememberLauncherForActivityResult(
@@ -59,11 +65,24 @@ fun HomeScreen(navController: NavController, viewModel: MainViewModel) {
         val locationGranted = permissions[Manifest.permission.ACCESS_FINE_LOCATION] ?: false
         
         if (smsGranted) {
-            viewModel.sendSos(if (locationGranted) "Fetching GPS..." else "Floor 3, Zone B (Simulated)")
+            if (locationGranted) {
+                val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
+                fusedLocationClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, null)
+                    .addOnSuccessListener { location ->
+                        val locStr = if (location != null) {
+                            "https://www.google.com/maps/search/?api=1&query=${location.latitude},${location.longitude}"
+                        } else {
+                            "Location unavailable (GPS fix failed)"
+                        }
+                        viewModel.sendSos(locStr)
+                    }.addOnFailureListener {
+                        viewModel.sendSos("Location fetch failed: ${it.message}")
+                    }
+            } else {
+                viewModel.sendSos("Location access denied (Using manual alert)")
+            }
         } else {
-            viewModel.clearErrors() // Clear any old ones
-            // We can't easily set a new error without a dedicated method, 
-            // but we can trigger a snackbar manually or just let the user know.
+            viewModel.clearErrors()
         }
     }
 
@@ -297,22 +316,42 @@ fun HomeScreen(navController: NavController, viewModel: MainViewModel) {
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
-                        .combinedClickable(
-                            onClick = { 
-                                // Show a hint on simple tap
-                                scope.launch { snackbarHostState.showSnackbar("LONG PRESS to trigger Emergency SOS") }
-                            },
-                            onLongClick = {
+                        .clickable {
+                            val now = System.currentTimeMillis()
+                            if (now - lastTapTime > 1500) {
+                                sosTapCount = 1
+                            } else {
+                                sosTapCount++
+                            }
+                            lastTapTime = now
+
+                            if (sosTapCount >= 5) {
+                                sosTapCount = 0
                                 val smsPermission = ContextCompat.checkSelfPermission(context, Manifest.permission.SEND_SMS)
                                 val locPermission = ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
                                 
                                 if (smsPermission == PackageManager.PERMISSION_GRANTED) {
-                                    viewModel.sendSos(if (locPermission == PackageManager.PERMISSION_GRANTED) "Floor 3, Zone B" else "Location access denied")
+                                    if (locPermission == PackageManager.PERMISSION_GRANTED) {
+                                        val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
+                                        fusedLocationClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, null)
+                                            .addOnSuccessListener { location ->
+                                                val locStr = if (location != null) {
+                                                    "https://www.google.com/maps/search/?api=1&query=${location.latitude},${location.longitude}"
+                                                } else {
+                                                    "Location unavailable (GPS fix failed)"
+                                                }
+                                                viewModel.sendSos(locStr)
+                                            }.addOnFailureListener {
+                                                viewModel.sendSos("Location fetch failed: ${it.message}")
+                                            }
+                                    } else {
+                                        viewModel.sendSos("Location permission denied")
+                                    }
                                 } else {
                                     permissionLauncher.launch(arrayOf(Manifest.permission.SEND_SMS, Manifest.permission.ACCESS_FINE_LOCATION))
                                 }
                             }
-                        ),
+                        },
                     contentAlignment = Alignment.Center
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
@@ -320,7 +359,7 @@ fun HomeScreen(navController: NavController, viewModel: MainViewModel) {
                         Spacer(modifier = Modifier.width(12.dp))
                         Column {
                             Text("EMERGENCY SOS", color = Color.White, fontWeight = FontWeight.Black, fontSize = 18.sp)
-                            Text("HOLD TO SEND LOCATION ALERT", color = Color.White.copy(alpha = 0.8f), fontSize = 11.sp)
+                            Text("TAP 5 TIMES TO SEND ALERT", color = Color.White.copy(alpha = 0.8f), fontSize = 11.sp)
                         }
                     }
                 }
