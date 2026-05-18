@@ -70,7 +70,7 @@ fun AuthScreen(
                     Icon(
                         painter = painterResource(id = R.drawable.ic_launcher_foreground),
                         contentDescription = "Shield Logo",
-                        modifier = Modifier.size(80.dp),
+                        modifier = Modifier.fillMaxSize(),
                         tint = safetyYellow
                     )
                 }

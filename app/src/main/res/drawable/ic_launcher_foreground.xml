@@ -4,8 +4,9 @@
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <!-- Modern Geometric Shield -->
+    <!-- Resized Shield for better centering and consistency -->
+    <!-- Scaled down to fit safe zone (approx 44dp height) -->
     <path
         android:fillColor="#FFCC00"
-        android:pathData="M54,20L28,32v24c0,16.2 11.1,31.4 26,36c14.9,-4.6 26,-19.8 26,-36V32L54,20z"/>
+        android:pathData="M54,32L38,39.3v14.7c0,9.9 6.8,19.2 16,22c9.2,-2.8 16,-12.1 16,-22V39.3L54,32z"/>
 </vector>

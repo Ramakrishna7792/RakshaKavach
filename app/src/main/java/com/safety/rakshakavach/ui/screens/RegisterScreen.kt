@@ -86,7 +86,7 @@ fun RegisterScreen(
                 Icon(
                     painter = painterResource(id = R.drawable.ic_launcher_foreground),
                     contentDescription = null,
-                    modifier = Modifier.padding(8.dp),
+                    modifier = Modifier.fillMaxSize(),
                     tint = safetyYellow
                 )
             }
